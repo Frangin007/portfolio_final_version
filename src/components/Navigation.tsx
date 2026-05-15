@@ -1,0 +1,132 @@
+import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
+
+const navItems = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'services', label: 'Services' },
+  { id: 'portfolio', label: 'Portfolio' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const Navigation: React.FC = () => {
+  const [active, setActive] = useState('home');
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      const pos = window.scrollY + 130;
+      for (let i = navItems.length - 1; i >= 0; i--) {
+        const el = document.getElementById(navItems[i].id);
+        if (el && el.offsetTop <= pos) { setActive(navItems[i].id); break; }
+      }
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const goto = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setOpen(false);
+  };
+
+  return (
+    <nav style={{
+      position: 'fixed', top: 0, width: '100%', zIndex: 100,
+      transition: 'all 0.4s ease',
+      background: scrolled ? 'rgba(10,13,20,0.92)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(24px)' : 'none',
+      borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none',
+    }}>
+      <div style={{ width: '100%', padding: '0 6vw' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
+
+          {/* Logo */}
+          <button onClick={() => goto('home')} style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            display: 'flex', alignItems: 'center', gap: '12px',
+          }}>
+            <div style={{
+              width: '38px', height: '38px', borderRadius: '10px',
+              background: 'linear-gradient(135deg, #38bdf8, #818cf8)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '17px', color: '#040710',
+            }}>F</div>
+            <span style={{
+              fontFamily: 'var(--font-display)', fontWeight: 700,
+              fontSize: '1.2rem', color: 'var(--text)', letterSpacing: '-0.02em',
+            }}>Frangin</span>
+          </button>
+
+          {/* Desktop links */}
+          <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }} className="hidden md:flex">
+            {navItems.map(item => (
+              <button key={item.id} onClick={() => goto(item.id)} style={{
+                padding: '9px 18px', borderRadius: '10px',
+                fontFamily: 'var(--font-display)', fontSize: '1rem',
+                fontWeight: active === item.id ? 700 : 500,
+                background: active === item.id ? 'rgba(56,189,248,0.1)' : 'transparent',
+                color: active === item.id ? '#38bdf8' : 'var(--text2)',
+                border: 'none', cursor: 'pointer', transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={e => { if (active !== item.id) (e.currentTarget as HTMLElement).style.color = 'var(--text)'; }}
+              onMouseLeave={e => { if (active !== item.id) (e.currentTarget as HTMLElement).style.color = 'var(--text2)'; }}>
+                {item.label}
+              </button>
+            ))}
+            <button onClick={() => goto('contact')} style={{
+              marginLeft: '10px', padding: '10px 24px', borderRadius: '10px',
+              fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700,
+              background: '#38bdf8', color: '#040710', border: 'none', cursor: 'pointer',
+              transition: 'all 0.25s ease',
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 24px rgba(56,189,248,0.35)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = 'none'; (e.currentTarget as HTMLElement).style.transform = 'none'; }}>
+              Hire me →
+            </button>
+          </div>
+
+          {/* Mobile burger */}
+          <button onClick={() => setOpen(!open)} className="md:hidden" style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            color: 'var(--text)', padding: '8px',
+          }}>
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <div style={{
+          background: 'rgba(10,13,20,0.98)', backdropFilter: 'blur(24px)',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+          padding: '16px 6vw 28px',
+        }} className="md:hidden">
+          {navItems.map(item => (
+            <button key={item.id} onClick={() => goto(item.id)} style={{
+              display: 'block', width: '100%', textAlign: 'left',
+              padding: '16px 18px', borderRadius: '12px', marginBottom: '6px',
+              fontFamily: 'var(--font-display)', fontSize: '1.15rem',
+              fontWeight: active === item.id ? 700 : 500,
+              background: active === item.id ? 'rgba(56,189,248,0.1)' : 'transparent',
+              color: active === item.id ? '#38bdf8' : 'var(--text2)',
+              border: 'none', cursor: 'pointer', transition: 'all 0.2s ease',
+            }}>{item.label}</button>
+          ))}
+          <button onClick={() => goto('contact')} style={{
+            display: 'block', width: '100%', marginTop: '10px',
+            padding: '16px 18px', borderRadius: '12px',
+            fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 700,
+            background: '#38bdf8', color: '#040710', border: 'none', cursor: 'pointer',
+          }}>Hire me →</button>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navigation;
