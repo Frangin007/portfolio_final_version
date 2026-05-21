@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --bg: #1a1d2e;
-  --bg2: #1e2235;
+  --bg: #0a0d14;
+  --bg2: #0d111c;
   --card: rgba(255,255,255,0.03);
   --card-border: rgba(255,255,255,0.08);
   --card-border-hover: rgba(56,189,248,0.35);
@@ -30,7 +30,6 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: 1rem;
   line-height: 1.7;
-  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar { width: 5px; }
@@ -40,16 +39,13 @@ body {
 
 .font-display { font-family: var(--font-display); }
 
-/* ── section wrapper ── */
+/* ── section wrapper — full width, generous padding ── */
 .section-wrap {
   width: 100%;
   max-width: 100%;
   padding: 100px 6vw;
   position: relative;
   z-index: 2;
-}
-@media (max-width: 768px) {
-  .section-wrap { padding: 72px 20px; }
 }
 
 /* ── eyebrow label ── */
@@ -76,14 +72,12 @@ body {
 /* ── section title ── */
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4.5vw, 5.5rem);
+  font-size: clamp(2.8rem, 5vw, 5.5rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
   color: var(--text);
   margin-bottom: 20px;
-  word-break: break-word;
-  overflow-wrap: break-word;
 }
 
 /* ── section subtitle ── */
@@ -156,10 +150,14 @@ body {
   color: var(--text2);
   cursor: pointer;
   transition: all 0.22s ease;
-  white-space: nowrap;
 }
 .fpill:hover { border-color: rgba(56,189,248,0.35); color: var(--text); }
-.fpill.active { background: var(--blue); border-color: var(--blue); color: #040710; box-shadow: 0 4px 20px rgba(56,189,248,0.3); }
+.fpill.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #040710;
+  box-shadow: 0 4px 20px rgba(56,189,248,0.3);
+}
 
 /* ── primary button ── */
 .btn-p {
@@ -234,13 +232,11 @@ a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
   transition: width 1.3s cubic-bezier(0.16,1,0.3,1);
 }
 
-/* ── navbar responsive ── */
-.nav-desktop { display: flex !important; }
-.nav-burger  { display: none !important; }
-@media (max-width: 768px) {
-  .nav-desktop { display: none !important; }
-  .nav-burger  { display: flex !important; }
+@keyframes floatY {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
-
-@keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-@keyframes pulseRing { 0%,100%{opacity:1} 50%{opacity:0.35} }
+@keyframes pulseRing {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
