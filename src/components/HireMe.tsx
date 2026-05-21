@@ -34,7 +34,7 @@ const HireMe: React.FC = () => {
         </div>
 
         <h2 className="section-title" style={{ marginBottom: '20px' }}>
-          Construisons quelque chose<br />
+          Construisons<br />quelque chose<br />
           <span className="g-text">dont vous serez fier</span>
         </h2>
 

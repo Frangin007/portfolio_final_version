@@ -33,8 +33,8 @@ const Contact: React.FC = () => {
         <div style={{ marginBottom: 'clamp(52px, 7vw, 88px)' }}>
           <div className="eyebrow">Contact</div>
           <h2 className="section-title">
-            Dites bonjour,<br />
-            <span className="g-text">créons ensemble</span>
+            Dites bonjour,<br />créons<br />
+            <span className="g-text">ensemble</span>
           </h2>
           <p className="section-sub" style={{ marginTop: '20px' }}>
             Vous avez un projet, une question ou vous voulez simplement me contacter ?
