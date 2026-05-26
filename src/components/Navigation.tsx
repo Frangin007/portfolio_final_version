@@ -39,7 +39,7 @@ const Navigation: React.FC = () => {
     setOpen(false);
   };
 
-  const NAV_BG   = scrolled || open ? 'rgba(255,255,255,0.97)' : 'transparent';
+  const NAV_BG   = 'rgba(255,255,255,0.97)';
   const NAV_BLUR = scrolled || open ? 'blur(20px)'              : 'none';
   const NAV_BORDER = scrolled ? '1px solid rgba(0,0,0,0.08)' : 'none';
 
