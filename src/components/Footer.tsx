@@ -4,8 +4,13 @@ import { ChevronUp, Github, Linkedin, Mail } from 'lucide-react';
 const Footer: React.FC = () => {
   const [showTop, setShowTop] = useState(false);
   useEffect(() => {
-    const fn = () => setShowTop(window.scrollY > 400);
-    window.addEventListener('scroll', fn);
+    let ticking = false;
+    const fn = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { setShowTop(window.scrollY > 400); ticking = false; });
+    };
+    window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
 

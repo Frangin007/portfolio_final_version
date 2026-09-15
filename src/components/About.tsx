@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import myImage from '../../assets/profil.png';
+import myImage from '../../assets/profil.jpg';
 
 const skills = [
   { label: 'Frontend Development',  pct: 90, color: '#38bdf8' },
@@ -41,7 +41,7 @@ const About: React.FC = () => {
             animation: 'floatY 6s ease-in-out infinite',
             maxWidth: '480px',
           }}>
-            <img src={myImage} alt="Frangin GBESSEMEHLAN"
+            <img src={myImage} alt="Frangin GBESSEMEHLAN" loading="lazy" decoding="async"
               style={{ width: '100%', display: 'block', objectFit: 'cover', aspectRatio: '4/5' }} />
           </div>
           {/* exp badge */}

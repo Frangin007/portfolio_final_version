@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Code2, Smartphone, BrainCircuit, Server } from 'lucide-react';
 
 const services = [
@@ -33,8 +33,6 @@ const services = [
 ];
 
 const Services: React.FC = () => {
-  const [hovered, setHovered] = useState<number | null>(null);
-
   return (
     <section id="services" style={{ background: 'var(--bg)', position: 'relative', overflow: 'hidden' }}>
       <div className="orb" style={{ width: '700px', height: '700px', top: '-200px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(56,189,248,0.05)' }} />
@@ -57,24 +55,18 @@ const Services: React.FC = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
           {services.map((s, i) => {
             const Icon = s.icon;
-            const isHov = hovered === i;
             return (
-              <div key={i} className="g-card" style={{
+              <div key={i} className="g-card svc-card" style={{
                 padding: 'clamp(30px, 3.5vw, 44px)',
                 position: 'relative', overflow: 'hidden', cursor: 'default',
-                borderColor: isHov ? s.border : 'var(--card-border)',
-                transform: isHov ? 'translateY(-6px)' : 'none',
-                boxShadow: isHov ? `0 28px 64px rgba(0,0,0,0.45), 0 0 40px ${s.color}18` : 'none',
-                transition: 'all 0.35s cubic-bezier(0.16,1,0.3,1)',
-              }}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(null)}>
-                <div style={{
+                '--accent-border': s.border,
+                '--accent-glow': `${s.color}18`,
+              } as React.CSSProperties}>
+                <div className="svc-icon" style={{
                   width: '62px', height: '62px', borderRadius: '16px',
                   background: s.bg, border: `1px solid ${s.border}`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   marginBottom: '28px', color: s.color,
-                  transform: isHov ? 'scale(1.08)' : 'scale(1)', transition: 'transform 0.3s ease',
                 }}>
                   <Icon size={28} />
                 </div>

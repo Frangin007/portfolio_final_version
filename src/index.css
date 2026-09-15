@@ -129,6 +129,33 @@ body {
   box-shadow: 0 12px 40px rgba(0,0,0,0.10);
 }
 
+/* ── gallery card (Portfolio / Projects) — hover en CSS pur, pas de re-render JS ── */
+.gallery-card {
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.35s ease;
+}
+.gallery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 64px rgba(0,0,0,0.45);
+}
+.gallery-card .gallery-img { transition: transform 0.5s ease; }
+.gallery-card:hover .gallery-img { transform: scale(1.07); }
+.gallery-card .gallery-arrow { transition: color 0.2s ease; }
+.gallery-card:hover .gallery-arrow { color: #38bdf8; }
+
+/* Projects.tsx — glow coloré par carte via variable CSS statique */
+.exp-card:hover {
+  border-color: var(--accent-border);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 24px var(--accent-glow);
+}
+
+/* Services.tsx */
+.svc-card:hover {
+  border-color: var(--accent-border);
+  box-shadow: 0 28px 64px rgba(0,0,0,0.45), 0 0 40px var(--accent-glow);
+}
+.svc-card .svc-icon { transition: transform 0.3s ease; }
+.svc-card:hover .svc-icon { transform: scale(1.08); }
+
 /* ── orb ── */
 .orb {
   position: absolute;

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { MapPin, Phone, Mail, Send, CheckCircle } from 'lucide-react';
-import InteractiveMap from './InteractiveMap';
 import { sendEmail, EmailData } from '../services/emailService';
+
+const InteractiveMap = lazy(() => import('./InteractiveMap'));
 
 const Contact: React.FC = () => {
   const [form, setForm] = useState<EmailData>({ name: '', email: '', phone: '', message: '' });
@@ -69,7 +70,9 @@ const Contact: React.FC = () => {
               ))}
             </div>
             <div style={{ borderRadius: '18px', overflow: 'hidden', border: '1px solid var(--card-border)' }}>
-              <InteractiveMap />
+              <Suspense fallback={<div style={{ height: '256px', width: '100%', background: 'var(--card)' }} />}>
+                <InteractiveMap />
+              </Suspense>
             </div>
           </div>
 

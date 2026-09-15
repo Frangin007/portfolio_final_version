@@ -16,7 +16,9 @@ const Navigation: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
       setScrolled(window.scrollY > 50);
       const pos = window.scrollY + 130;
       for (let i = navItems.length - 1; i >= 0; i--) {
@@ -24,7 +26,10 @@ const Navigation: React.FC = () => {
         if (el && el.offsetTop <= pos) { setActive(navItems[i].id); break; }
       }
     };
-    window.addEventListener('scroll', onScroll);
+    const onScroll = () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 

@@ -4,17 +4,16 @@ import { ArrowUpRight } from 'lucide-react';
 const filters = ['Tout', 'Frontend', 'Backend', 'Data & IA', 'Mobile'];
 
 const items = [
-  { title: 'Plateforme E-commerce',    category: 'Frontend',  img: 'https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg',  desc: 'E-commerce complet avec gestion de stock en temps réel, panier et intégration de paiement.' },
-  { title: 'Dashboard Analytics',      category: 'Data & IA', img: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg',     desc: 'Tableau de bord live avec insights ML, graphiques personnalisés et rapports automatisés.' },
-  { title: 'App Banque Mobile',         category: 'Mobile',    img: 'https://images.pexels.com/photos/4386431/pexels-photo-4386431.jpeg',   desc: 'Application bancaire cross-platform avec auth biométrique, alertes push et mode hors-ligne.' },
-  { title: 'API Gateway System',        category: 'Backend',   img: 'https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg',     desc: 'Gateway API haute performance avec rate limiting, logs et routage microservices.' },
-  { title: 'Plateforme Sociale',        category: 'Frontend',  img: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg',   desc: 'Communauté avec fils d\'actualité, notifications temps réel et éditeur de contenu riche.' },
-  { title: 'Analyse Prédictive',        category: 'Data & IA', img: 'https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg',     desc: 'Pipeline Sklearn & TensorFlow pour prévisions de ventes avec rapports Power BI interactifs.' },
+  { title: 'Plateforme E-commerce',    category: 'Frontend',  img: 'https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg?auto=compress&cs=tinysrgb&w=800',  desc: 'E-commerce complet avec gestion de stock en temps réel, panier et intégration de paiement.' },
+  { title: 'Dashboard Analytics',      category: 'Data & IA', img: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',     desc: 'Tableau de bord live avec insights ML, graphiques personnalisés et rapports automatisés.' },
+  { title: 'App Banque Mobile',         category: 'Mobile',    img: 'https://images.pexels.com/photos/4386431/pexels-photo-4386431.jpeg?auto=compress&cs=tinysrgb&w=800',   desc: 'Application bancaire cross-platform avec auth biométrique, alertes push et mode hors-ligne.' },
+  { title: 'API Gateway System',        category: 'Backend',   img: 'https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&w=800',     desc: 'Gateway API haute performance avec rate limiting, logs et routage microservices.' },
+  { title: 'Plateforme Sociale',        category: 'Frontend',  img: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800',   desc: 'Communauté avec fils d\'actualité, notifications temps réel et éditeur de contenu riche.' },
+  { title: 'Analyse Prédictive',        category: 'Data & IA', img: 'https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=800',     desc: 'Pipeline Sklearn & TensorFlow pour prévisions de ventes avec rapports Power BI interactifs.' },
 ];
 
 const Portfolio: React.FC = () => {
   const [filter, setFilter] = useState('Tout');
-  const [hov, setHov] = useState<number | null>(null);
 
   const visible = filter === 'Tout' ? items : items.filter(i => i.category === filter);
 
@@ -46,21 +45,12 @@ const Portfolio: React.FC = () => {
 
         {/* grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
-          {visible.map((item, i) => (
-            <div key={item.title} className="g-card" style={{
-              overflow: 'hidden', cursor: 'pointer',
-              transform: hov === i ? 'translateY(-6px)' : 'none',
-              boxShadow: hov === i ? '0 28px 64px rgba(0,0,0,0.45)' : 'none',
-              transition: 'all 0.35s cubic-bezier(0.16,1,0.3,1)',
-            }}
-            onMouseEnter={() => setHov(i)}
-            onMouseLeave={() => setHov(null)}>
+          {visible.map((item) => (
+            <div key={item.title} className="g-card gallery-card" style={{ overflow: 'hidden', cursor: 'pointer' }}>
               {/* image */}
               <div style={{ position: 'relative', overflow: 'hidden', height: '230px' }}>
-                <img src={item.img} alt={item.title} style={{
+                <img src={item.img} alt={item.title} loading="lazy" decoding="async" className="gallery-img" style={{
                   width: '100%', height: '100%', objectFit: 'cover',
-                  transition: 'transform 0.5s ease',
-                  transform: hov === i ? 'scale(1.07)' : 'scale(1)',
                 }} />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,13,20,0.88) 0%, transparent 55%)' }} />
                 <div style={{
@@ -80,7 +70,7 @@ const Portfolio: React.FC = () => {
                     fontSize: 'clamp(1.1rem, 1.8vw, 1.3rem)', fontWeight: 700,
                     letterSpacing: '-0.02em', color: 'var(--text)', lineHeight: 1.2,
                   }}>{item.title}</h3>
-                  <ArrowUpRight size={20} style={{ color: hov === i ? '#38bdf8' : 'var(--text3)', flexShrink: 0, marginLeft: '10px', marginTop: '2px', transition: 'color 0.2s' }} />
+                  <ArrowUpRight size={20} className="gallery-arrow" style={{ color: 'var(--text3)', flexShrink: 0, marginLeft: '10px', marginTop: '2px' }} />
                 </div>
                 <p style={{ fontSize: 'clamp(0.95rem, 1.5vw, 1.05rem)', color: 'var(--text2)', lineHeight: 1.7, fontWeight: 300 }}>
                   {item.desc}
